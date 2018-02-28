@@ -7,7 +7,7 @@ import javax.crypto.Cipher;
 
 public class Send implements java.io.Serializable {
 	byte[] pubkey;
-    byte[] encrypted;
+	byte[] encrypted;
 	String msg;
 
 	public Send(byte[] pubkey, byte[] encrypted, String msg){

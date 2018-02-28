@@ -13,7 +13,6 @@ public class Server implements Hello {
 
 	public String sayHello(Send send) throws Exception{
 		Cripto c = new Cripto();
-		System.out.println("key2 = "+send.pubkey);
 		PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(send.pubkey));
 		byte[] decrypted = c.decrypt(publicKey,send.encrypted);
 		return new String(decrypted);
