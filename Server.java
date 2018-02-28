@@ -16,8 +16,6 @@ public class Server implements Hello {
 		PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(send.pubkey));
 		String decrypted = new String (c.decrypt(publicKey,send.encrypted));
 		String compare = c.sha512(send.msg);
-		System.out.println("1 = "+decrypted);	
-		System.out.println("2 = "+compare);
 		if(decrypted.equals(compare))
 			return "Autentication Success";
 		else
