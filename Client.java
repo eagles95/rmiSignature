@@ -22,7 +22,8 @@ public class Client {
 				
 				Cripto c = new Cripto();
 				KeyPair keys = c.buildKeyPair();
-				byte[] encrypted = c.encrypt(keys.getPrivate(),"teste");
+
+				byte[] encrypted = c.encrypt(keys.getPrivate(),c.sha512("teste").getBytes());
 				Send send = new Send(keys.getPublic().getEncoded(),encrypted,"teste");
 				
 				String response = stub.sayHello( send );

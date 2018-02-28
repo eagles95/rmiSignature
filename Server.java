@@ -14,8 +14,14 @@ public class Server implements Hello {
 	public String sayHello(Send send) throws Exception{
 		Cripto c = new Cripto();
 		PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(send.pubkey));
-		byte[] decrypted = c.decrypt(publicKey,send.encrypted);
-		return new String(decrypted);
+		String decrypted = new String (c.decrypt(publicKey,send.encrypted));
+		String compare = c.sha512(send.msg);
+		System.out.println("1 = "+decrypted);	
+		System.out.println("2 = "+compare);
+		if(decrypted.equals(compare))
+			return "Autentication Success";
+		else
+			return "Authentication Failed";
 	}
 			        
 	public static void main(String args[]) {
@@ -23,7 +29,7 @@ public class Server implements Hello {
 			Server obj = new Server();
 			Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 0);
 			// Bind the remote object's stub in the registry
-            Registry registry = LocateRegistry.getRegistry();
+			Registry registry = LocateRegistry.getRegistry();
 			registry.bind("Hello", stub);
 			System.err.println("Server ready");
 		} catch (Exception e) {
