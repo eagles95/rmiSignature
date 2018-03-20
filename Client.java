@@ -12,13 +12,14 @@ import javax.crypto.Cipher;
 
 public class Client implements NewJFrame.RMISelectFileInterface {
     private String host;
+    private NewJFrame jframe;    
 
     public Client(String host) {
         this.host = host;
     }
 
     public void waitForFile() {
-        NewJFrame jframe = new NewJFrame(this);
+        jframe = new NewJFrame(this);
         jframe.pack();
         jframe.setLocationRelativeTo(null);
         jframe.setVisible(true);
@@ -37,7 +38,7 @@ public class Client implements NewJFrame.RMISelectFileInterface {
             Send send = new Send(keys.getPublic().getEncoded(), encrypted, file);
 
             String response = stub.sayHello(send);
-            System.out.println("response: " + response);
+            jframe.setResposta(response);
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
